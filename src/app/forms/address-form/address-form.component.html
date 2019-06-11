@@ -1,0 +1,11 @@
+<form novalidate [ngrxFormState]="addressForm$ | async">
+  <label>House Name:</label>
+  <input type="text" [ngrxFormControlState]="(addressForm$ | async).controls.houseName" />
+  <label>Line 1:</label>
+  <input type="text" [ngrxFormControlState]="(addressForm$ | async).controls.line1" />
+  <label>Line 2:</label>
+  <input type="text" [ngrxFormControlState]="(addressForm$ | async).controls.line2" />
+  <label>Postcode:</label>
+  <input type="text" [ngrxFormControlState]="(addressForm$ | async).controls.Postcode" />
+  <button type="submit"></button>
+</form>

@@ -1,0 +1,8 @@
+<form novalidate [ngrxFormState]="personForm$ | async">
+  <label>First Name:</label>
+  <input type="text" [ngrxFormControlState]="(personForm$ | async).controls.firstName" />
+  <label>Last Name:</label>
+  <input type="text" [ngrxFormControlState]="(personForm$ | async).controls.lastName" />
+  <label>Age:</label>
+  <input type="number" [ngrxFormControlState]="(personForm$ | async).controls.age" />
+</form>

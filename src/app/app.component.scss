@@ -1,0 +1,17 @@
+input.ngrx-forms-dirty.ngrx-forms-invalid {
+  outline: 1px solid red;
+}
+
+input {
+  display: block;
+}
+
+label {
+  margin-top: 20px;
+}
+
+* { 
+  font-family: arial;
+  padding: 10px;
+  margin-top: 10px;
+}
