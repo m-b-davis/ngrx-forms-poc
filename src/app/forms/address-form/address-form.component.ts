@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { RootAppState } from 'src/app/store/rootReducer';
+import { nextStep, prevStep } from 'src/app/store/navigation/navigation-reducer';
+import { selectForm, selectIsValid } from '../form-selectors';
 
 @Component({
   selector: 'app-address-form',
@@ -8,9 +10,22 @@ import { RootAppState } from 'src/app/store/rootReducer';
   styleUrls: ['./../../app.component.scss'],
 })
 export class AddressFormComponent {
-  addressForm$ = this.store.pipe(
-    select(state => state.forms.controls.address),
+  form$ = this.store.pipe(
+    selectForm('address'),
+  );
+
+  isValid$ = this.store.pipe(
+    selectForm('address'),
+    selectIsValid(),
   );
 
   constructor(private store: Store<RootAppState>) { }
+
+  back() {
+    this.store.dispatch(prevStep());
+  }
+
+  submit() {
+    this.store.dispatch(nextStep());
+  }
 }

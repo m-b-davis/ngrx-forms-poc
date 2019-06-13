@@ -1,11 +1,37 @@
-<form novalidate [ngrxFormState]="addressForm$ | async">
-  <label>House Name:</label>
-  <input type="text" [ngrxFormControlState]="(addressForm$ | async).controls.houseName" />
-  <label>Line 1:</label>
-  <input type="text" [ngrxFormControlState]="(addressForm$ | async).controls.line1" />
-  <label>Line 2:</label>
-  <input type="text" [ngrxFormControlState]="(addressForm$ | async).controls.line2" />
-  <label>Postcode:</label>
-  <input type="text" [ngrxFormControlState]="(addressForm$ | async).controls.Postcode" />
-  <button type="submit"></button>
+<form novalidate [ngrxFormState]="form$ | async">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="House Name" [ngrxFormControlState]="(form$ | async).controls.houseName" />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Address Line 1:" [ngrxFormControlState]="(form$ | async).controls.line1" />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Address Line 2:" [ngrxFormControlState]="(form$ | async).controls.line2" />
+  </mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Postcode" [ngrxFormControlState]="(form$ | async).controls.postcode" />
+  </mat-form-field>
+  <!-- <mat-error *ngIf="(form$ | async).errors._line1?._min?.required">
+      A password is required
+    </mat-error>
+    <mat-error *ngIf="!(form$ | async).errors._password?._password?.required && (form$ | async).errors._password?._password?.minLength">
+      Must be at least {{ (form$ | async).errors._password._password.minLength.minLength }} characters long
+    </mat-error> -->
+  <button
+    mat-raised-button
+    color="secondary"
+    (click)="back()">
+    Back
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submit()"
+    [disabled]="!(isValid$ | async)">
+    Next
+  </button>
 </form>

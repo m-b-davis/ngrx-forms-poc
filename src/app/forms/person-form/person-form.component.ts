@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { RootAppState } from 'src/app/store/rootReducer';
+import { selectForm, selectIsValid } from '../form-selectors';
+import { nextStep, prevStep } from 'src/app/store/navigation/navigation-reducer';
 
 @Component({
   selector: 'app-person-form',
@@ -8,9 +10,22 @@ import { RootAppState } from 'src/app/store/rootReducer';
   styleUrls: ['./../../app.component.scss'],
 })
 export class PersonFormComponent {
-  personForm$ = this.store.pipe(
-    select(state => state.forms.controls.person),
+  form$ = this.store.pipe(
+    selectForm('person')
+  );
+
+  isValid$ = this.store.pipe(
+    selectForm('person'),
+    selectIsValid(),
   );
 
   constructor(private store: Store<RootAppState>) { }
+
+  back() {
+    this.store.dispatch(prevStep());
+  }
+
+  submit() {
+    this.store.dispatch(nextStep());
+  }
 }

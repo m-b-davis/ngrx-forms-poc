@@ -1,8 +1,30 @@
-<form novalidate [ngrxFormState]="personForm$ | async">
-  <label>First Name:</label>
-  <input type="text" [ngrxFormControlState]="(personForm$ | async).controls.firstName" />
-  <label>Last Name:</label>
-  <input type="text" [ngrxFormControlState]="(personForm$ | async).controls.lastName" />
-  <label>Age:</label>
-  <input type="number" [ngrxFormControlState]="(personForm$ | async).controls.age" />
+<form novalidate [ngrxFormState]="form$ | async">
+  <mat-form-field class="example-full-width">
+      <input matInput placeholder="First Name" [ngrxFormControlState]="(form$ | async).controls.firstName" />
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Surname" [ngrxFormControlState]="(form$ | async).controls.lastName" />
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Age:" type="number" [ngrxFormControlState]="(form$ | async).controls.age" />
+    </mat-form-field>
+  
+    <p *ngIf="(form$ | async).controls.age.value > 18 && (form$ | async).controls.age.value < 20; else elseBlock">Next Form: user</p>
+    <ng-template #elseBlock><p>Next Form: address</p></ng-template>
+  <button
+    mat-raised-button
+    color="secondary"
+    (click)="back()">
+    Back
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submit()"
+    [disabled]="!(isValid$ | async)">
+    Next
+  </button>
 </form>

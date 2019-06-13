@@ -1,5 +1,16 @@
-import { required } from 'ngrx-forms/validation';
+import { minLength } from 'ngrx-forms/validation';
 import { updateGroup, validate, createFormStateReducerWithUpdate } from 'ngrx-forms';
+
+export interface FieldsShouldMatchValidationError {
+  fieldId?: string;
+}
+
+// @ts-ignore
+declare module 'ngrx-forms/src/state' {
+  export interface ValidationErrors {
+    fieldsShouldMatch?: FieldsShouldMatchValidationError;
+  }
+}
 
 export interface AddressForm {
   houseName: string;
@@ -15,11 +26,13 @@ export const initialState = {
   postcode: '',
 };
 
+const validateAddressLine = validate<string>(minLength(5));
+
 export const validateAndUpdateFormState = updateGroup<AddressForm>({
-  houseName: validate(required),
-  line1: validate(required),
-  line2: validate(required),
-  postcode: validate(required),
+  houseName: validate(minLength(1)),
+  line1: validateAddressLine,
+  line2: validateAddressLine,
+  postcode: validateAddressLine,
 });
 
 export default createFormStateReducerWithUpdate<AddressForm>(validateAndUpdateFormState);

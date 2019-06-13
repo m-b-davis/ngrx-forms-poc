@@ -1,0 +1,25 @@
+<div>
+  Success!
+  <h1>User:</h1>
+  <p>email: {{ (user$ | async).controls.email.value}}</p>
+  <p>confirmEmail: {{ (user$ | async).controls.confirmEmail.value }}</p>
+
+  <h1>Address:</h1>
+  <p>houseName: {{ (address$ | async).controls.houseName.value}}</p>
+  <p>line1: {{ (address$ | async).controls.line1.value }}</p>
+  <p>line2: {{ (address$ | async).controls.line2.value }}</p>
+  <p>postcode: {{ (address$ | async).controls.postcode.value }}</p>
+
+  <h1>Person:</h1>
+  <p>age: {{ (person$ | async).controls.age.value}}</p>
+  <p>firstName: {{ (person$ | async).controls.firstName.value }}</p>
+  <p>lastName: {{ (person$ | async).controls.lastName.value }}</p>
+
+  <button
+  mat-raised-button
+  color="accent"
+  (click)="restartJourney()"
+>
+Restart Journey
+</button>
+</div>

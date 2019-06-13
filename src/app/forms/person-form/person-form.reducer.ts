@@ -14,7 +14,7 @@ export const initialState = {
 };
 
 export const validateAndUpdateFormState = updateGroup<PersonForm>({
-  firstName: validate(required),
+firstName: validate(required),
   lastName: validate(required),
   age: validate([
     required,
