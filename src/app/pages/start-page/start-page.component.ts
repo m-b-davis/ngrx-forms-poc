@@ -1,4 +1,4 @@
-import { RootAppState } from '../../store/rootReducer';
+import { RootAppState } from '../../store/root-reducer';
 import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { nextStep } from 'src/app/store/navigation/navigation-reducer';

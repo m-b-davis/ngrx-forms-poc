@@ -11,8 +11,8 @@
       <input matInput placeholder="Age:" type="number" [ngrxFormControlState]="(form$ | async).controls.age" />
     </mat-form-field>
   
-    <p *ngIf="(form$ | async).controls.age.value > 18 && (form$ | async).controls.age.value < 20; else elseBlock">Next Form: user</p>
-    <ng-template #elseBlock><p>Next Form: address</p></ng-template>
+    <p *ngIf="(form$ | async).controls.age.value > 18 && (form$ | async).controls.age.value < 20; else elseBlock">Next Form: User</p>
+    <ng-template #elseBlock><p>Next Form: Address</p></ng-template>
   <button
     mat-raised-button
     color="secondary"

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { RootAppState } from './store/rootReducer';
+import { RootAppState } from './store/root-reducer';
 import { forceHMRUiReload } from './store/navigation/navigation-reducer';
 import { DEV_MODE } from './app.module';
+import { resetAllForms } from './store/root-forms-reducer';
 
 @Component({
   selector: 'app-root',
@@ -20,5 +21,9 @@ export class AppComponent implements OnInit {
     if (DEV_MODE) {
       setTimeout(() => { this.store.dispatch(forceHMRUiReload()); });
     }
+  }
+
+  resetAllForms() {
+    this.store.dispatch(resetAllForms());
   }
 }

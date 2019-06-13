@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { RootAppState } from 'src/app/store/rootReducer';
+import { RootAppState } from 'src/app/store/root-reducer';
 import { selectForm, selectIsValid } from '../form-selectors';
 import { nextStep, prevStep } from 'src/app/store/navigation/navigation-reducer';
 

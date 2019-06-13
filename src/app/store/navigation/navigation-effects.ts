@@ -5,8 +5,9 @@ import { Effect, ofType, Actions } from '@ngrx/effects';
 import { NavigationAction, NEXT_STEP, PREV_STEP, RESTART_NAVIGATION, SET_PAGE, setPage, pageSet } from './navigation-reducer';
 import { Store } from '@ngrx/store';
 import { map, withLatestFrom, filter } from 'rxjs/operators';
-import { RootAppState } from '../rootReducer';
+import { RootAppState } from '../root-reducer';
 import { navigationGraph, ROOT_PAGE } from './navigation-graph';
+import { RESET_ALL_FORMS } from '../root-forms-reducer';
 
 @Injectable()
 export class NavigationEffects {
@@ -56,10 +57,15 @@ export class NavigationEffects {
     map(action => {
       const route = action.payload;
       this.router.navigate([route]);
-      console.log({SETPAGE: route});
       return pageSet(route);
     })
   );
+
+  // @Effect()
+  // resumeJourney$ = this.actions$.pipe(
+  //   ofType('SET_ROOT_STATE'), // Select action type
+  //   map((action: { payload: RootAppState }) => setPage(action.payload.navigation.pageId)) // Navigate to rehydrated pageId
+  // );
 
   /**
    * Observe RESTART_NAVIGATE actions and navigate to prev page based
@@ -67,7 +73,7 @@ export class NavigationEffects {
    */
   @Effect()
   restartNavigation$ = this.actions$.pipe(
-    ofType(RESTART_NAVIGATION), // Select action type
+    ofType(RESTART_NAVIGATION, RESET_ALL_FORMS), // Select action type
     map(() => setPage(ROOT_PAGE)) // Navigate to route page
   );
 }

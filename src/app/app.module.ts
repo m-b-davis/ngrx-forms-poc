@@ -3,8 +3,10 @@ import { NgModule, ApplicationRef, OnInit } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgrxFormsModule, Actions } from 'ngrx-forms';
-import { rootReducer, initialState, RootAppState } from './store/rootReducer';
-import { StoreModule, ActionReducer, Action, MetaReducer, Store } from '@ngrx/store';
+import { rootReducer, initialState, RootAppState } from './store/root-reducer';
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+import { StoreModule, ActionReducer, Store } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Forms } from './forms';
 import { MaterialModule } from './material';
@@ -16,7 +18,11 @@ import { SuccessPageComponent } from './pages/success-page/success-page.componen
 
 import { removeNgStyles, createInputTransfer } from '@angularclass/hmr';
 import { take } from 'rxjs/operators';
-import { forceHMRUiReload } from './store/navigation/navigation-reducer';
+import { setPage } from './store/navigation/navigation-reducer';
+import { RESET_ALL_FORMS } from './store/root-forms-reducer';
+
+export const DEV_MODE = true;
+export const ENABLE_REHYDRATE = true;
 
 export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
   return (state: any, action: any) => {
@@ -28,16 +34,29 @@ export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
   };
 }
 
-export const DEV_MODE = true;
-
-export const metaReducers = [
-  ...(DEV_MODE ? [logger] : []),
-  stateSetter
-];
-
 export function logger(reducer: ActionReducer<RootAppState>): any {
   return storeLogger()(reducer);
 }
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({
+    keys: ['forms'],
+    rehydrate: ENABLE_REHYDRATE,
+  })(reducer);
+}
+
+function resetAllForms(reducer) {
+  return (state, action) => {
+    return reducer(action.type === RESET_ALL_FORMS ? { ...initialState } : state, action);
+  };
+}
+
+export const metaReducers = [
+  ...(DEV_MODE ? [logger] : []),
+  stateSetter,
+  localStorageSyncReducer,
+  resetAllForms,
+];
 
 @NgModule({
   declarations: [
@@ -113,10 +132,9 @@ export class AppModule {
         type: 'SET_ROOT_STATE',
         payload: store.rootState
       });
+
+      this.store.dispatch(setPage(store.rootState.navigation.pageId));
     }
-
-    setTimeout(() => { this.store.dispatch(forceHMRUiReload()); }, 100);
-
 
     if ('restoreInputValues' in store) { store.restoreInputValues(); }
     Object.keys(store).forEach(prop => delete store[prop]);

@@ -1,4 +1,4 @@
-import { RootAppState } from '../rootReducer';
+import { RootAppState } from '../root-reducer';
 
 const Page = {
   Root: '/',

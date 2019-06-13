@@ -1,6 +1,6 @@
 import { select } from '@ngrx/store';
 import { FormGroupState } from 'ngrx-forms';
-import { RootAppState } from '../store/rootReducer';
+import { RootAppState } from '../store/root-reducer';
 
 export function selectIsValid() {
   return select((form: FormGroupState<any>) => form.isValid && form.isTouched);

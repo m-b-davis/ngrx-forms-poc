@@ -1,4 +1,4 @@
-import { RootAppState } from '../../store/rootReducer';
+import { RootAppState } from '../../store/root-reducer';
 import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { selectForm } from 'src/app/forms/form-selectors';

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { RootAppState } from 'src/app/store/rootReducer';
+import { RootAppState } from 'src/app/store/root-reducer';
 import { Router } from '@angular/router';
 import { nextStep, prevStep } from 'src/app/store/navigation/navigation-reducer';
 import { selectForm, selectIsValid } from '../form-selectors';
@@ -28,10 +28,7 @@ export class UserFormComponent {
   }
 
   submit() {
-    this.isValid$.subscribe(valid => valid
-      ? this.store.dispatch(nextStep())
-      : alert('form invalid!')
-    );
+    this.store.dispatch(nextStep());
   }
 
   back() {
