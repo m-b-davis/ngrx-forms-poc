@@ -1,8 +1,8 @@
 <div>
   Success!
   <h1>User:</h1>
-  <p>email: {{ (user$ | async).controls.email.value}}</p>
-  <p>confirmEmail: {{ (user$ | async).controls.confirmEmail.value }}</p>
+  <p>email: {{ (user$ | async).controls.email.controls.email.value}}</p>
+  <p>confirmEmail: {{ (user$ | async).controls.email.controls.confirmEmail.value }}</p>
 
   <h1>Address:</h1>
   <p>houseName: {{ (address$ | async).controls.houseName.value}}</p>

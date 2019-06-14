@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { RootAppState } from 'src/app/store/root-reducer';
-import { Router } from '@angular/router';
 import { nextStep, prevStep } from 'src/app/store/navigation/navigation-reducer';
 import { selectForm, selectIsValid } from '../form-selectors';
-
 
 @Component({
   selector: 'app-user-form',
@@ -21,7 +19,7 @@ export class UserFormComponent {
     selectIsValid(),
   );
 
-  constructor(private store: Store<RootAppState>, private router: Router) {
+  constructor(private store: Store<RootAppState>) {
     this.form$.subscribe(state => {
       console.log({ state });
     });

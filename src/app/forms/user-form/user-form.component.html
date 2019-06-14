@@ -1,10 +1,10 @@
 <form novalidate [ngrxFormState]="form$ | async">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Email Address" [ngrxFormControlState]="(form$ | async).controls.email" />
+    <input matInput placeholder="Email Address" [ngrxFormControlState]="(form$ | async).controls.email.controls.email" />
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Confirm Email Address"  [ngrxFormControlState]="(form$ | async).controls.confirmEmail" />
+    <input matInput placeholder="Confirm Email Address"  [ngrxFormControlState]="(form$ | async).controls.email.controls.confirmEmail" />
   </mat-form-field>
 
   <button
