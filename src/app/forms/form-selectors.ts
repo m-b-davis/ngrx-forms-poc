@@ -12,4 +12,3 @@ type FormID = keyof Forms;
 export function selectForm<K extends FormID>(formId: K) {
   return select((state: RootAppState) => state.forms.controls[formId]);
 }
-

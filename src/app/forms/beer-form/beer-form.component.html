@@ -32,7 +32,21 @@
   
   <ul *ngIf="(searchResults$ | async).length > 0">
     <li *ngFor="let r of (searchResults$ | async)">
-      {{ r }}
+      <app-search-result [result]="r" [searchTerm]="(formState$ | async).controls.searchTerm.value" ></app-search-result>
     </li>
   </ul>
+
+  <button
+    mat-raised-button
+    color="secondary"
+    (click)="back()"
+  >
+    Back
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submit()"
+    [disabled]="!(isValid$ | async)">Next</button>
 </form>

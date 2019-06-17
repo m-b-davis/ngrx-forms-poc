@@ -9,6 +9,7 @@ export interface BeerForm {
 
 export interface State {
   beer: {
+    beerId?: string;
     formState: FormGroupState<BeerForm>;
     searchResults: string[];
   };
@@ -48,7 +49,3 @@ export default combineReducers<State['beer']>({
     return s;
   },
 });
-
-// export function reducer(s: State['beer'], a: Action) {
-//   return reducers(s, a);
-// }

@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BeerFormComponent } from './beer-form.component';
 import { BeerFormEffects } from './beer-form.effects';
 import reducer from './beer-form.reducer';
+import { SearchResultComponent } from './search-result/search-result.component';
+import { HighlightPipe } from './search-result/hilight.pipe';
 
 @NgModule({
   imports: [
@@ -22,10 +24,13 @@ import reducer from './beer-form.reducer';
     EffectsModule.forFeature([BeerFormEffects]),
   ],
   declarations: [
+  SearchResultComponent,
     BeerFormComponent,
+    HighlightPipe,
   ],
   exports: [
     BeerFormComponent,
+    HighlightPipe,
   ]
 })
 export class BeerFormModule { }

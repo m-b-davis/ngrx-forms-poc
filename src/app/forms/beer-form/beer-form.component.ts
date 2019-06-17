@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { FormGroupState } from 'ngrx-forms';
-import { Observable } from 'rxjs';
-
-import { BeerForm, State } from './beer-form.reducer';
+import { State } from './beer-form.reducer';
+import { nextStep, prevStep } from 'src/app/store/navigation/navigation-reducer';
 
 @Component({
   selector: 'app-beer-form',
@@ -12,11 +10,21 @@ import { BeerForm, State } from './beer-form.reducer';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BeerFormComponent {
-  formState$: Observable<FormGroupState<BeerForm>>;
-  searchResults$: Observable<string[]>;
+  formState$ = this.store.pipe(select(s => s.beer.formState));
+  searchResults$ = this.store.pipe(select(s => s.beer.searchResults));
 
-  constructor(store: Store<State>) {
-    this.formState$ = store.pipe(select(s => s.beer.formState));
-    this.searchResults$ = store.pipe(select(s => s.beer.searchResults));
+  isValid$ = this.store.pipe(
+    select(s => s.beer.formState),
+    select(f => f.isValid && f.isTouched)
+  );
+
+  constructor(private store: Store<State>) { }
+
+  submit() {
+    this.store.dispatch(nextStep());
+  }
+
+  back() {
+    this.store.dispatch(prevStep());
   }
 }

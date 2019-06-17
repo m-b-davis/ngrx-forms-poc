@@ -12,16 +12,22 @@ import { catchError, concat, distinct, filter, flatMap, map, switchMap } from 'r
 
 import { SetSearchResultAction, State } from './beer-form.reducer';
 
+const MIN_SEARCH_LENGTH = 3;
+const DEBOUNCE_TIME = 300;
+
 @Injectable()
 export class BeerFormEffects {
 
   @Effect()
   searchBeers$: Observable<Action> = this.store.pipe(
     select(s => s.beer.formState),
-    filter(fs => !!fs.value.searchTerm && fs.controls.numberOfResultsToShow.isValid),
+    filter(fs => !!fs.value.searchTerm
+      && fs.value.searchTerm.length >= MIN_SEARCH_LENGTH
+      && fs.controls.numberOfResultsToShow.isValid
+    ),
     distinct(fs => fs.value),
     switchMap(fs =>
-      timer(300).pipe(
+      timer(DEBOUNCE_TIME).pipe(
         map(() => new StartAsyncValidationAction(
           fs.controls.searchTerm.id,
           'exists',
