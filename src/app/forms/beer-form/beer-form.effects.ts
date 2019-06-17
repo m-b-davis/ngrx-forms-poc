@@ -36,11 +36,11 @@ export class BeerFormEffects {
               },
             }
           ).pipe(
-            flatMap((resp: any) => {
-              if (resp.totalItems > 0) {
+            flatMap((beers: any) => {
+              if (beers.length > 0) {
                 return [
                   new SetSearchResultAction(
-                    resp.items.map((i: PunkAPIResult) => i.name),
+                    beers.map((i: PunkAPIResult) => i.name),
                   ),
                   new ClearAsyncErrorAction(
                     fs.controls.searchTerm.id,
