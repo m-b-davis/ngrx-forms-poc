@@ -16,7 +16,7 @@ import { SetSearchResultAction, State } from './beer-form.reducer';
 export class BeerFormEffects {
 
   @Effect()
-  searchBooks$: Observable<Action> = this.store.pipe(
+  searchBeers$: Observable<Action> = this.store.pipe(
     select(s => s.beer.formState),
     filter(fs => !!fs.value.searchTerm && fs.controls.numberOfResultsToShow.isValid),
     distinct(fs => fs.value),

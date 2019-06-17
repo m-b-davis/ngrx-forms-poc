@@ -20,6 +20,7 @@ import { removeNgStyles, createInputTransfer } from '@angularclass/hmr';
 import { take } from 'rxjs/operators';
 import { setPage } from './store/navigation/navigation-reducer';
 import { RESET_ALL_FORMS } from './store/root-forms-reducer';
+import { BeerFormModule } from './forms/beer-form/beer-form.module';
 
 export const DEV_MODE = true;
 export const ENABLE_REHYDRATE = true;
@@ -71,6 +72,7 @@ export const metaReducers = [
     BrowserModule,
     AppRoutingModule,
     NgrxFormsModule,
+    BeerFormModule,
     StoreModule.forRoot(rootReducer, {
       metaReducers,
       initialState,

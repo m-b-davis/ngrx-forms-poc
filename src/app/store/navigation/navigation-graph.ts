@@ -6,6 +6,7 @@ const Page = {
   AddressForm: 'address',
   UserForm: 'user',
   Success: 'success',
+  BeerForm: 'beer',
 };
 
 export const ROOT_PAGE = Page.Root;
@@ -23,17 +24,19 @@ interface NavNode {
 
 type NavRoute = PageID | ((state: RootAppState) => PageID);
 
+const personAgeUnder20 = (state: RootAppState) => state.forms.controls.person.controls.age.value < 20;
+
 export const navigationGraph: NavGraph = {
   [Page.Root]: {
-    next: Page.PersonForm,
+    next: Page.BeerForm,
   },
   [Page.PersonForm]: {
-    next: (state: RootAppState) =>
+    next: state =>
       // Route to user if over 18
-      state.forms.controls.person.controls.age.value < 20
+      personAgeUnder20(state)
         ? Page.UserForm
         : Page.AddressForm,
-    prev: Page.Root,
+    prev: Page.BeerForm,
   },
   [Page.AddressForm]: {
     prev: Page.PersonForm,
@@ -43,4 +46,8 @@ export const navigationGraph: NavGraph = {
     prev: Page.PersonForm,
     next: Page.Success,
   },
+  [Page.BeerForm]: {
+    prev: Page.Root,
+    next: Page.PersonForm,
+  }
 };
